@@ -1,25 +1,29 @@
-var express = require('express');
+const express = require('express');
+const path = require('path');
+const routes = require('./routes');
+const app = express();
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
-var app = express();
 const QRCode = require('qrcode');
 const fs = require('fs');
-require('./db/mongoose');
-const Student = require('./models/student')
-const Attendance = require('./models/attendance')
+require('./src/db/mongoose');
+const Student = require('./src/models/student')
+const Attendance = require('./src/models/attendance')
 var qr = require('qr-image');
 const { version } = require('os');
 
-app.get('', function (req, res) {
-    res.render('form');
-});
+// Set the folder for css & java scripts
+app.use(express.static(path.join(__dirname, 'css')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
+app.set('views', path.join(__dirname, 'html'));
 app.engine('ejs', require('ejs').__express);
 app.set('view engine', 'ejs');
-app.set('views', './src');
+//app.set('views', '/index');
 
-// for parsing application/json
+app.use('/', routes);
+
 app.use(bodyParser.json());
 
 // for parsing application/xwww-
@@ -32,7 +36,7 @@ app.use(express.static('public'));
 console.log("Data saved");
 
 app.post('', function (req, res) {
-    //console.log(req.body)
+    console.log(req.body)
 
     stringData = JSON.stringify(req.body);
     regno = req.body.regno;
@@ -62,26 +66,12 @@ app.post('', function (req, res) {
 
     QRCode.toFile('./qrImage.png', stringData, { version: 6 });
 
-    res.send("recieved your request!");
+    res.render('sucess');
 });
 
-app.get('/read_qr.js', (req, res) => {
-    res.render('read_qr.js')
-    console.log("hey");
-    console.log(req.body);
-    console.log(res.body);
-    console.log(db.collection('students').find({ name: 'Ganavi' }));
-    console.log(Student.find({ name: 'Ganavi' }));
-    Student.find({}).then((students) => {
-        console.log(students)
-        //console.log('heyy')
-    }).catch((e) => {
-        console.log(e)
-    })
-})
-
 app.get('/list', (req, res) => {
-    res.render('student_list');
+    res.render('list');
 })
 
 app.listen(3000);
+
