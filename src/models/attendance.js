@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Attendance = mongoose.model('Attendance', {
+const attendanceSchema = mongoose.Schema({
     regno: {
         type: String
     },
@@ -8,7 +8,7 @@ const Attendance = mongoose.model('Attendance', {
         type: Boolean
     },
     // address: {
-        // type: String
+    // type: String
     // },
     // phonenumber: {
     // type: Number
@@ -17,6 +17,9 @@ const Attendance = mongoose.model('Attendance', {
     // type: Number
     // },
 })
+
+const Attendance = mongoose.model('Attendance', attendanceSchema)
+
 // const stu = new Student({
 // name: 'Ganavi',
 // address: 'Here'

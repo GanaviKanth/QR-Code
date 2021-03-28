@@ -35,7 +35,7 @@ app.use(upload.array());
 app.use(express.static('public'));
 console.log("Data saved");
 
-app.post('', function (req, res) {
+app.post('', async function (req, res) {
     console.log(req.body)
 
     stringData = JSON.stringify(req.body);
@@ -59,7 +59,7 @@ app.post('', function (req, res) {
         phonenumber: phonenumber,
     });
     st.save().then(() => {
-        //console.log(st)
+        console.log(st)
     }).catch((error) => {
         console.log("error", error)
     });
@@ -76,10 +76,15 @@ app.post('', function (req, res) {
 
     QRCode.toFile('./qrImage.png', stringData, { version: 10 });
 
-    res.render('sucess.ejs');
+    res.render('success in saving the file');
 });
 
 app.get('/list.ejs', (req, res) => {
+    //retrieve from mongoose and print list
+    const studentList = Student.find({})
+    studentList.forEach(function printStudents(item,index) {
+        console.log(item + " => at index " + index)
+    })
     res.render('list');
 })
 

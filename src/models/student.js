@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Student = mongoose.model('Student', {
+const studentSchema = mongoose.Schema({
     regno: {
         type: String
     },
@@ -23,8 +23,10 @@ const Student = mongoose.model('Student', {
         type: String
     },
     phonenumber: {
-    type: Number
+        type: Number
     },
 })
+
+const Student = mongoose.model('Student', studentSchema)
 
 module.exports = Student
