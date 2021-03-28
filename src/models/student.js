@@ -4,28 +4,27 @@ const Student = mongoose.model('Student', {
     regno: {
         type: String
     },
-    name: {
+    sname: {
         type: String
+    },
+    fname: {
+        type: String
+    },
+    bgroup: {
+        type: String
+    },
+    course: {
+        type: String
+    },
+    dob: {
+        type: Date
     },
     address: {
         type: String
     },
-    // phonenumber: {
-    // type: Number
-    // },
-    // class: {
-    // type: Number
-    // },
+    phonenumber: {
+    type: Number
+    },
 })
-// const stu = new Student({
-// name: 'Ganavi',
-// address: 'Here'
-// })
 
-// stu.save().then(() => {
-//console.log(stu)
-// }).catch((error) => {
-// console.log("error", error)
-// })
-// 
 module.exports = Student

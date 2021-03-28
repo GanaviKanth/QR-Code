@@ -1,10 +1,14 @@
-body{
- background: url(https://cdn.pixabay.com/photo/2017/04/05/04/44/background-2203989_1280.jpg);
+body {
+    background: url(https://cdn.pixabay.com/photo/2017/04/05/04/44/background-2203989_1280.jpg);
 }
-
-p{
+p {
     font-size: larger;
-    color:darkgreen;
+    color: darkgreen;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-decoration: underline;
+}
+#form {
+    color: #000;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
 }

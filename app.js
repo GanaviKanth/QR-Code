@@ -40,13 +40,23 @@ app.post('', function (req, res) {
 
     stringData = JSON.stringify(req.body);
     regno = req.body.regno;
-    name = req.body.name;
+    sname = req.body.sname;
+    fname = req.body.fname;
+    bgroup = req.body.bgroup;
+    course = req.body.course;
+    dob = req.body.dob;
     address = req.body.address;
+    phonenumber = req.body.phonenumber;
 
     const st = new Student({
         regno: regno,
-        name: name,
-        address: address
+        sname: sname,
+        fname: fname,
+        bgroup: bgroup,
+        course: course,
+        dob: dob,
+        address: address,
+        phonenumber: phonenumber,
     });
     st.save().then(() => {
         //console.log(st)
@@ -55,7 +65,7 @@ app.post('', function (req, res) {
     });
 
     const att = new Attendance({
-        regno: regno,
+        register_no: regno,
         present: false
     });
     att.save().then(() => {
@@ -64,12 +74,12 @@ app.post('', function (req, res) {
         console.log("error", error)
     });
 
-    QRCode.toFile('./qrImage.png', stringData, { version: 6 });
+    QRCode.toFile('./qrImage.png', stringData, { version: 10 });
 
-    res.render('sucess');
+    res.render('sucess.ejs');
 });
 
-app.get('/list', (req, res) => {
+app.get('/list.ejs', (req, res) => {
     res.render('list');
 })
 
