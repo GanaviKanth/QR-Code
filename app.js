@@ -27,15 +27,11 @@ app.use('/', routes);
 
 app.use(bodyParser.json());
 
-// for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: false }));
-//form-urlencoded
-
-// for parsing multipart/form-data
 app.use(upload.array());
+
 app.use(express.static('public'));
 console.log("Data saved");
-
 
 app.post('/',
     check('regno').isLength(10).withMessage("the length of Register Number Should be 10 of the form 1PE*******"),
@@ -44,7 +40,7 @@ app.post('/',
             regno: value
         }).then(student => {
             if (student.length > 0) {
-                throw ("The USN " + value + " already exists"); //custom error message
+                throw ("The USN " + value + " already exists"); 
             }
         });
     }),
@@ -53,15 +49,13 @@ app.post('/',
     check('phonenumber').isLength(10).withMessage("number is not correct").isMobilePhone().withMessage("number is Incorrect"),
     check('bgroup').matches(/^(A|B|AB|O)[+-]$/i).withMessage("Please enter correct blood group"),
     check('dob').isDate().withMessage("Enter a valid date"),
-    function (req, res) {
+    async function (req, res) {
         var err = validationResult(req);
         if (!err.isEmpty()) {
             console.log(err.array())
             res.render('error', { data: err.array() })
         }
         else {
-            //console.log(req.body)
-
             stringData = JSON.stringify(req.body);
             regno = req.body.regno;
             sname = req.body.sname;
@@ -93,7 +87,6 @@ app.post('/',
                 present: false
             });
             att.save().then(() => {
-                // console.log(att)
             }).catch((error) => {
                 console.log("error", error)
             });
@@ -104,36 +97,6 @@ app.post('/',
         }
     });
 
-// app.post('', async function (req, res) {
-// console.log(req.body)
-// 
-// stringData = JSON.stringify(req.body);
-// regno = req.body.regno;
-// sname = req.body.sname;
-// fname = req.body.fname;
-// bgroup = req.body.bgroup;
-// course = req.body.course;
-// dob = req.body.dob;
-// address = req.body.address;
-// phonenumber = req.body.phonenumber;
-// 
-// const st = new Student({
-// regno: regno,
-// sname: sname,
-// fname: fname,
-// bgroup: bgroup,
-// course: course,
-// dob: dob,
-// address: address,
-// phonenumber: phonenumber,
-// });
-// st.save().then(() => {
-// console.log(st)
-// }).catch((error) => {
-// console.log("error", error)
-// 
-// });
-// 
 app.get('/list.ejs', (req, res) => {
     Student.find({}, function (err, docs) {
         if (err) {
@@ -158,22 +121,11 @@ app.get('/list/:regno', (req, res) => {
 
 })
 
-
-
 app.get('/error.ejs', (req, res) => {
     res.render('error');
 
     res.render('success in saving the file');
 });
-
-// app.get('/list.ejs', (req, res) => {
-//retrieve from mongoose and print list
-// const studentList = Student.find({})
-// studentList.forEach(function printStudents(item,index) {
-// console.log(item + " => at index " + index)
-// })
-// res.render('list');
-// });
 
 app.listen(3000);
 
