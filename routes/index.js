@@ -16,4 +16,15 @@ router.get('/success', (req, res) => {
     res.render('sucess');
 });
 
+router.get('/error', (req, res) => {
+    console.log('error page recieved');
+    res.render('error');
+});
+
+router.get('/details', (req, res) => {
+    console.log('details page recieved');
+    res.render('details');
+
+});
+
 module.exports = router;

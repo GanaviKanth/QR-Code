@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/style.css" type="text/css" />
     <style>
         body {
             background: url(https://cdn.pixabay.com/photo/2017/04/05/04/44/background-2203989_1280.jpg);
@@ -64,35 +64,43 @@
                 <table>
                     <tr>
                         <td>Register Number:</td>
-                        <td><input type="text" name="regno" /></td>
+                        <td><input type="text" name="regno" placeholder="Register number" required /></td>
                     </tr>
                     <tr>
                         <td>Student's Name:</td>
-                        <td><input type="text" name="sname" /></td>
+                        <td><input type="text" name="sname" placeholder="Student name" required />
+                        </td>
                     </tr>
                     <tr>
                         <td>Father's Name:</td>
-                        <td><input type="text" name="fname" /></td>
+                        <td><input type="text" name="fname" placeholder="Father name" required /></td>
                     </tr>
                     <tr>
                         <td>Student's Blood Group:</td>
-                        <td><input type="text" name="bgroup" /></td>
+                        <td><input type="text" name="bgroup" placeholder="Blood group" required /></td>
                     </tr>
                     <tr>
-                        <td>Student's Course:</td>
-                        <td><input type="text" name="course" /></td>
+                        <td><label for="cars">Course of Study:</label></td>
+                        <td> <select id="course" name="course">
+                                <option value="Computer Science">CSE</option>
+                                <option value="Information Science">ISE</option>
+                                <option value="Mechanical Engineering">MECH</option>
+                                <option value="Electrical Engineering">EC</option>
+                            </select>
+                        </td>
+
                     </tr>
                     <tr>
                         <td>Student's Date of birth:</td>
-                        <td><input type="date" name="dob" /></td>
+                        <td><input type="date" name="dob" required /></td>
                     </tr>
                     <tr>
                         <td>Permanent Address:</td>
-                        <td><input type="text" name="address" /></td>
+                        <td><input type="text" name="address" placeholder="Address" required /></td>
                     </tr>
                     <tr>
                         <td>Student's Phone Number:</td>
-                        <td><input type="text" name="phonenumber" /></td>
+                        <td><input type="text" name="phonenumber" placeholder="Phone Number" required /></td>
                     </tr>
                 </table>
                 <br>

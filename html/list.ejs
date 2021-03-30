@@ -14,20 +14,24 @@
 </head>
 
 <body>
-    <div id="student">
-        <center>
-            <table>
-                <tr>
-                    <th>Reg no</th>
-                    <th>Name</th>
-                </tr>
-                <tr>
-                    <td>1PE17CS074</td>
-                    <td>ganavi</td>
-                </tr>
-            </table>
-        </center>
-    </div>
+    <center>
+        <h2> Click on the RegisterNumber to get full details</h2>
+        <table>
+            <div class="list-group" id="student">
+                <!-- loop over blog posts and render them -->
+                <% docs.forEach((post)=> { %>
+                    <tr>
+                        <td> <a href="/list/<%= post.regno %>" class="list-group-item">
+                                <h4 class="list-group-item-heading">
+                                    <%= post.regno %> -
+                                        <%= post.sname %>
+                                </h4>
+                            </a></td>
+                    </tr>
+                    <% }) %>
+            </div>
+        </table>
+    </center>
 </body>
 
 </html>

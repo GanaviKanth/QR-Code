@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <center>
+
+        <img src="<%= image %>" /><br>
+
+        <% data.forEach((post)=> { %>
+            <table>
+                <tr>
+                    <td>Register Number</td>
+                    <td>
+                        <%= post.regno %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Student's Name</td>
+                    <td>
+                        <%= post.sname %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Father's Name</td>
+                    <td>
+                        <%= post.fname %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Student's Blood Group</td>
+                    <td>
+                        <%= post.bgroup %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Student's Course</td>
+                    <td>
+                        <%= post.course %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>
+                        <%= post.dob %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Student's Phone Number</td>
+                    <td>
+                        <%= post.phonenumber %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Permanent Address</td>
+                    <td>
+                        <%= post.address %>
+                    </td>
+                </tr>
+            </table>
+
+            <% }) %>
+                <button onclick="history.go(-1)" id="back">
+                    Click here to go back
+                </button>
+
+
+    </center>
+</body>
+
+</html>
