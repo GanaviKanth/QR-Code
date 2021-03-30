@@ -15,7 +15,7 @@ const { version } = require('os');
 var { check, validationResult } = require('express-validator');
 
 // Set the folder for css & java scripts
-app.use(express.static(path.join(__dirname, 'css')));
+app.use(express.static(__dirname, 'css'));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.set('views', path.join(__dirname, 'html'));
