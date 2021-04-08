@@ -2,11 +2,12 @@ var Jimp = require("jimp");
 var fs = require('fs')
 var qrCode = require('qrcode-reader');
 var path = require('path');
+//const app = express();
+//run().catch(error => console.error(error.stack));
 
-run().catch(error => console.error(error.stack));
+async function run(val) {
 
-async function run() {
-    const img = await Jimp.read(fs.readFileSync('./qrImage.png'));
+    const img = await Jimp.read(fs.readFileSync(val));
 
     const qr = new qrCode();
 
@@ -15,5 +16,8 @@ async function run() {
         qr.callback = (err, v) => err != null ? reject(err) : resolve(v);
         qr.decode(img.bitmap);
     });
-    console.log(value.result);
+    console.log(value.result)
+    //return (value.result);
 }
+
+module.exports = { run };

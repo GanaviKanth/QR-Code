@@ -7,7 +7,9 @@ const attendanceSchema = mongoose.Schema({
     present: {
         type: Boolean
     },
-
+    count: {
+        type:Number
+    }
 });
 const Attendance = mongoose.model('Attendance', attendanceSchema)
 

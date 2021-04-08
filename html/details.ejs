@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
     <style>
 
     </style>
@@ -8,7 +9,9 @@
 
 <body>
     <center>
-
+        <h1>
+            Scan the QR Code for the details
+        </h1>
         <img src="<%= image %>" /><br>
 
         <% data.forEach((post)=> { %>
@@ -62,13 +65,14 @@
                     </td>
                 </tr>
             </table>
-
+            <br>
             <% }) %>
-                <button onclick="history.go(-1)" id="back">
-                    Click here to go back
-                </button>
-
-
+                <br>
+                The student's scanner is scanned for <%= count %> times <br>
+                    Currently the student is <%= present %> in the class<br>
+                        <button onclick="history.go(-1)" id="back">
+                            Click here to go back
+                        </button>
     </center>
 </body>
 

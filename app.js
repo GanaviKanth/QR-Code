@@ -13,6 +13,8 @@ const Attendance = require('./src/models/attendance')
 var qr = require('qr-image');
 const { version } = require('os');
 var { check, validationResult } = require('express-validator');
+const read = require('./read_qr');
+const { count } = require('./src/models/student');
 
 // Set the folder for css & java scripts
 app.use(express.static(path.join(__dirname, 'css')));
@@ -31,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(upload.array());
 
 app.use(express.static('public'));
+app.use(express.static('qr_codes'));
 console.log("Data saved");
 
 app.post('/',
@@ -40,13 +43,13 @@ app.post('/',
             regno: value
         }).then(student => {
             if (student.length > 0) {
-                throw ("The USN " + value + " already exists"); 
+                throw ("The USN " + value + " already exists");
             }
         });
     }),
     check('sname').isLength(3).withMessage("minimun length of Student Name should be is 3").matches(/^[A-Za-z\s]+$/).withMessage("The Student Name should contain only alphabets"),
     check('fname').isLength(3).withMessage("minimun length of Father Name should be is 3").matches(/^[A-Za-z\s]+$/).withMessage("The Father Name should contain only alphabets"),
-    check('phonenumber').isLength(10).withMessage("number is not correct").isMobilePhone().withMessage("number is Incorrect"),
+    check('phonenumber').matches(/^\d{10}$/).withMessage("number is Incorrect"),
     check('bgroup').matches(/^(A|B|AB|O)[+-]$/i).withMessage("Please enter correct blood group"),
     check('dob').isDate().withMessage("Enter a valid date"),
     async function (req, res) {
@@ -84,7 +87,8 @@ app.post('/',
 
             const att = new Attendance({
                 regno: regno,
-                present: false
+                present: false,
+                count: 0,
             });
             att.save().then(() => {
             }).catch((error) => {
@@ -109,23 +113,46 @@ app.get('/list.ejs', (req, res) => {
 })
 
 app.get('/list/:regno', (req, res) => {
-    var img_src = "../qr_codes/qr" + req.params.regno + ".png";
+    var imgs = "/qr" + req.params.regno + ".png";
+    var qr = "./qr_codes/qr" + req.params.regno + ".png";
+    read.run(qr);
+    var count, pres;
+    Attendance.find({ regno: req.params.regno }, 'count present', function (err, data) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            data[0].present = !data[0].present;
+            Attendance.updateOne({ regno: req.params.regno }, { count: data[0].count + 1, present: data[0].present }, function (err, data1) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(data1)
+                }
+            })
+        }
+        count = data[0].count
+        if (data[0].present == true) { pres = 'absent' }
+        else { pres = 'present' }
+    })
     Student.find({ regno: req.params.regno }, function (err, data) {
         if (err) {
             console.log(err);
         }
         else {
-            res.render('details', { image: img_src, data: data });
+            res.render('details', { image: imgs, data: data, count: count, present: pres });
         }
     });
-
 })
 
 app.get('/error.ejs', (req, res) => {
     res.render('error');
-
     res.render('success in saving the file');
 });
+app.get('/index', (req, res) => {
+    res.render('details');
+})
 
 app.listen(3000);
 
